@@ -6,7 +6,7 @@ from service import Application, Service, Characteristic, Descriptor
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 5000
-CONFIG_FILE_PATH = ""
+CONFIG_FILE_PATH = "config.json"
 
 class BikeAdvertisement(Advertisement):
     def __init__(self, index):
