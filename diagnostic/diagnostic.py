@@ -1,7 +1,6 @@
 from service import Service, Characteristic
 from util.util import read_value
 
-GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 3000
 
 
