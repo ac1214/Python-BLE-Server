@@ -66,7 +66,7 @@ class BatteryCharacteristic(Characteristic):
     def ReadValue(self, options):
         value = self.get_battery_life()
 
-        return value
+        return [dbus.Byte("t".encode())]
 
 class TempDescriptor(Descriptor):
     TEMP_DESCRIPTOR_UUID = "2901"
