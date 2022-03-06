@@ -14,7 +14,7 @@ def read_value(key):
         temp = res.to_bytes(3, 'big')
         val = []
         for el in temp:
-            val.append(dbus.Byte(res))
+            val.append(dbus.Byte(el))
         return val
     if type(res) == str:
         return string_to_byte_arr(res)
