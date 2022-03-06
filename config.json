@@ -1,6 +1,6 @@
 {
     "battery-precent": 500,
-    "speed": 25,
+    "speed": 25.1,
     "pa": 1,
     "hw-version": "hw_version123",
     "sw-version": "sw_version123",
@@ -8,5 +8,7 @@
     "model": "Boostbike model 123",
     "battery-temp": 30,
     "time-used": 1800,
-    "distance-travelled": 2400
+    "distance-travelled": 2400,
+    "range": 20.0,
+    "headlight": 1
 }

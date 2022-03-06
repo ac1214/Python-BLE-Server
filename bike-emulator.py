@@ -5,6 +5,10 @@ from service import Application, Service, Characteristic, Descriptor
 from stats.battery import BatteryService
 from diagnostic.diagnostic import DiagnosticService
 from stats.trip import TripService
+from stats.battery import BatteryService
+from stats.range import RangeService
+from stats.speed import SpeedService
+from userconfig.headlight import HeadlightService
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 3000
@@ -66,12 +70,12 @@ class BikeAdvertisement(Advertisement):
 
 app = Application()
 app.add_service(DiagnosticService(0))
-app.register()
-
 app.add_service(BatteryService(1))
-app.register()
-
 app.add_service(TripService(2))
+app.add_service(RangeService(3))
+app.add_service(SpeedService(4))
+app.add_service(HeadlightService(5))
+
 app.register()
 
 adv = BikeAdvertisement(0)

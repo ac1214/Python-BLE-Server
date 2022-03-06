@@ -13,6 +13,7 @@ class TripService(Service):
 
         Service.__init__(self, index, self.TRIP_SERVICE_UUID, True)
         self.add_characteristic(TimeCharacteristic(self))
+        self.add_characteristic(DistanceCharacteristic(self))
 
 
 class TimeCharacteristic(Characteristic):
