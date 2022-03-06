@@ -26,7 +26,7 @@ class HeadlightCharacteristic(Characteristic):
             ["notify", "read", "write"], service)
 
     def WriteValue(self, value, options):
-        write_value("headlight", value)
+        write_value("headlight", value[0])
 
     def set_headlight_callback(self):
         if self.notifying:
