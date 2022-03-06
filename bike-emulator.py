@@ -41,7 +41,7 @@ class BatteryCharacteristic(Characteristic):
             data = json.load(f)
             precent = data["battery-precent"]
 
-        return [dbus.Byte(precent.encode())]
+        return [dbus.Byte("t".encode())]
 
     def set_battery_callback(self):
         if self.notifying:
