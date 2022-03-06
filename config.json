@@ -1,4 +1,10 @@
 {
     "battery-precent": 57,
-    "speed": 25
+    "speed": 25,
+    "pa": 1,
+    "hw-version": "hw_version123",
+    "sw-version": "sw_version123",
+    "fw-version": "fw_version123",
+    "model": "Boostbike model 123",
+    "battery-temp": 30
 }
