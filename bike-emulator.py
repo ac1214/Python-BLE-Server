@@ -3,7 +3,6 @@ import json
 
 from advertisement import Advertisement
 from service import Application, Service, Characteristic, Descriptor
-from gpiozero import CPUTemperature
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 5000
@@ -43,93 +42,93 @@ class BatteryCharacteristic(Characteristic):
 
         return [dbus.Byte("t".encode())]
 
-    def set_battery_callback(self):
-        if self.notifying:
-            value = self.get_battery_life()
-            self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
+    # def set_battery_callback(self):
+    #     if self.notifying:
+    #         value = self.get_battery_life()
+    #         self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
 
-        return self.notifying
+    #     return self.notifying
 
-    def StartNotify(self):
-        if self.notifying:
-            return
+    # def StartNotify(self):
+    #     if self.notifying:
+    #         return
 
-        self.notifying = True
+    #     self.notifying = True
 
-        value = self.get_battery_life()
-        self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
-        self.add_timeout(NOTIFY_TIMEOUT, self.set_battery_callback)
+    #     value = self.get_battery_life()
+    #     self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
+    #     self.add_timeout(NOTIFY_TIMEOUT, self.set_battery_callback)
 
-    def StopNotify(self):
-        self.notifying = False
+    # def StopNotify(self):
+    #     self.notifying = False
 
     def ReadValue(self, options):
-        value = self.get_battery_life()
+        # value = self.get_battery_life()
         print("debug")
         return [dbus.Byte("t".encode())]
 
-class TempDescriptor(Descriptor):
-    TEMP_DESCRIPTOR_UUID = "2901"
-    TEMP_DESCRIPTOR_VALUE = "CPU Temperature"
+# class TempDescriptor(Descriptor):
+#     TEMP_DESCRIPTOR_UUID = "2901"
+#     TEMP_DESCRIPTOR_VALUE = "CPU Temperature"
 
-    def __init__(self, characteristic):
-        Descriptor.__init__(
-                self, self.TEMP_DESCRIPTOR_UUID,
-                ["read"],
-                characteristic)
+#     def __init__(self, characteristic):
+#         Descriptor.__init__(
+#                 self, self.TEMP_DESCRIPTOR_UUID,
+#                 ["read"],
+#                 characteristic)
 
-    def ReadValue(self, options):
-        value = []
-        desc = self.TEMP_DESCRIPTOR_VALUE
+#     def ReadValue(self, options):
+#         value = []
+#         desc = self.TEMP_DESCRIPTOR_VALUE
 
-        for c in desc:
-            value.append(dbus.Byte(c.encode()))
+#         for c in desc:
+#             value.append(dbus.Byte(c.encode()))
 
-        return value
+#         return value
 
-class UnitCharacteristic(Characteristic):
-    UNIT_CHARACTERISTIC_UUID = "00000003-710e-4a5b-8d75-3e5b444bc3cf"
+# class UnitCharacteristic(Characteristic):
+#     UNIT_CHARACTERISTIC_UUID = "00000003-710e-4a5b-8d75-3e5b444bc3cf"
 
-    def __init__(self, service):
-        Characteristic.__init__(
-                self, self.UNIT_CHARACTERISTIC_UUID,
-                ["read", "write"], service)
-        self.add_descriptor(UnitDescriptor(self))
+#     def __init__(self, service):
+#         Characteristic.__init__(
+#                 self, self.UNIT_CHARACTERISTIC_UUID,
+#                 ["read", "write"], service)
+#         self.add_descriptor(UnitDescriptor(self))
 
-    def WriteValue(self, value, options):
-        val = str(value[0]).upper()
-        if val == "C":
-            self.service.set_farenheit(False)
-        elif val == "F":
-            self.service.set_farenheit(True)
+#     def WriteValue(self, value, options):
+#         val = str(value[0]).upper()
+#         if val == "C":
+#             self.service.set_farenheit(False)
+#         elif val == "F":
+#             self.service.set_farenheit(True)
 
-    def ReadValue(self, options):
-        value = []
+#     def ReadValue(self, options):
+#         value = []
 
-        if self.service.is_farenheit(): val = "F"
-        else: val = "C"
-        value.append(dbus.Byte(val.encode()))
+#         if self.service.is_farenheit(): val = "F"
+#         else: val = "C"
+#         value.append(dbus.Byte(val.encode()))
 
-        return value
+#         return value
 
-class UnitDescriptor(Descriptor):
-    UNIT_DESCRIPTOR_UUID = "2901"
-    UNIT_DESCRIPTOR_VALUE = "Temperature Units (F or C)"
+# class UnitDescriptor(Descriptor):
+#     UNIT_DESCRIPTOR_UUID = "2901"
+#     UNIT_DESCRIPTOR_VALUE = "Temperature Units (F or C)"
 
-    def __init__(self, characteristic):
-        Descriptor.__init__(
-                self, self.UNIT_DESCRIPTOR_UUID,
-                ["read"],
-                characteristic)
+#     def __init__(self, characteristic):
+#         Descriptor.__init__(
+#                 self, self.UNIT_DESCRIPTOR_UUID,
+#                 ["read"],
+#                 characteristic)
 
-    def ReadValue(self, options):
-        value = []
-        desc = self.UNIT_DESCRIPTOR_VALUE
+#     def ReadValue(self, options):
+#         value = []
+#         desc = self.UNIT_DESCRIPTOR_VALUE
 
-        for c in desc:
-            value.append(dbus.Byte(c.encode()))
+#         for c in desc:
+#             value.append(dbus.Byte(c.encode()))
 
-        return value
+#         return value
 
 app = Application()
 app.add_service(BatteryService(0))
