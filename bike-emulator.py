@@ -40,7 +40,7 @@ class BatteryCharacteristic(Characteristic):
             data = json.load(f)
             precent = data["battery-precent"]
 
-        return [dbus.Byte("t".encode())]
+        return [dbus.Byte(precent.encode())]
 
     # def set_battery_callback(self):
     #     if self.notifying:
@@ -63,9 +63,9 @@ class BatteryCharacteristic(Characteristic):
     #     self.notifying = False
 
     def ReadValue(self, options):
-        # value = self.get_battery_life()
+        value = self.get_battery_life()
         print("debug")
-        return [dbus.Byte("t".encode())]
+        return value
 
 # class TempDescriptor(Descriptor):
 #     TEMP_DESCRIPTOR_UUID = "2901"
