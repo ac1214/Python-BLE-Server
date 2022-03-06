@@ -22,10 +22,10 @@ class BatteryService(Service):
         self.farenheit = True
 
         Service.__init__(self, index, self.BATTERY_SERVICE_UUID, True)
-        self.add_characteristic(TempCharacteristic(self))
+        self.add_characteristic(BatteryCharacteristic(self))
         # self.add_characteristic(UnitCharacteristic(self))
 
-class TempCharacteristic(Characteristic):
+class BatteryCharacteristic(Characteristic):
     TEMP_CHARACTERISTIC_UUID = "00001001-0000-1000-8000-00805F9B34FB"
 
     def __init__(self, service):
@@ -41,7 +41,7 @@ class TempCharacteristic(Characteristic):
             data = json.load(f)
             precent = data["battery-precent"]
 
-        return dbus.Byte(precent.encode())
+        return [dbus.Byte(precent.encode())]
 
     def set_battery_callback(self):
         if self.notifying:
