@@ -1,5 +1,3 @@
-import dbus
-
 from service import Service, Characteristic
 from util.util import read_value
 
@@ -30,8 +28,7 @@ class HWVersionCharacteristic(Characteristic):
             ["read"], service)
 
     def ReadValue(self, options):
-        return [dbus.Byte(123)]
-        # return read_value("hw-version")
+        return read_value("hw-version")
 
 
 class SWVersionCharacteristic(Characteristic):
