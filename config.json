@@ -10,5 +10,6 @@
     "time-used": 1800,
     "distance-travelled": 2400,
     "range": 20.0,
-    "headlight": 1
+    "headlight": 1,
+    "pas": 1
 }

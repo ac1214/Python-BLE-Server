@@ -9,6 +9,7 @@ from stats.battery import BatteryService
 from stats.range import RangeService
 from stats.speed import SpeedService
 from userconfig.headlight import HeadlightService
+from userconfig.pas import PASService
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 3000
@@ -75,6 +76,7 @@ app.add_service(TripService(2))
 app.add_service(RangeService(3))
 app.add_service(SpeedService(4))
 app.add_service(HeadlightService(5))
+app.add_service(PASService(6))
 
 app.register()
 
