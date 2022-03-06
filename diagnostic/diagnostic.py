@@ -1,3 +1,5 @@
+import dbus
+
 from service import Service, Characteristic
 from util.util import read_value
 
@@ -14,6 +16,7 @@ class DiagnosticService(Service):
         Service.__init__(self, index, self.DIAGNOSTIC_SERVICE_UUID, True)
         self.add_characteristic(HWVersionCharacteristic(self))
         self.add_characteristic(SWVersionCharacteristic(self))
+        self.add_characteristic(FWVersionCharacteristic(self))
         self.add_characteristic(ModelCharacteristic(self))
         self.add_characteristic(BatteryTempCharacteristic(self))
 
@@ -27,7 +30,8 @@ class HWVersionCharacteristic(Characteristic):
             ["read"], service)
 
     def ReadValue(self, options):
-        return read_value("hw-version")
+        return [dbus.Byte(123)]
+        # return read_value("hw-version")
 
 
 class SWVersionCharacteristic(Characteristic):
