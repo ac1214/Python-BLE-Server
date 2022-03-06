@@ -47,5 +47,4 @@ class BatteryCharacteristic(Characteristic):
         self.notifying = False
 
     def ReadValue(self, options):
-        return [dbus.Byte('0x123')]
-        # return read_value("battery-precent")
+        return read_value("battery-precent")
