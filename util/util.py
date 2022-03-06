@@ -5,7 +5,7 @@ CONFIG_FILE_PATH = "config.json"
 
 
 def read_value(key):
-    with open(CONFIG_FILE_PATH, 'rw') as f:
+    with open(CONFIG_FILE_PATH, 'r') as f:
         data = json.load(f)
         res = data[key]
 
