@@ -67,8 +67,8 @@ app = Application()
 app.add_service(DiagnosticService(0))
 app.register()
 
-# app.add_service(BatteryService(0))
-# app.register()
+app.add_service(BatteryService(0))
+app.register()
 
 
 adv = BikeAdvertisement(0)

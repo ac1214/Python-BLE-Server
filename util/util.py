@@ -14,8 +14,6 @@ def read_value(key):
     if type(res) == str:
         return string_to_byte_arr(res)
 
-    print('test')
-
     return res
 
 
