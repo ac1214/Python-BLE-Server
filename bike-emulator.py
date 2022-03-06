@@ -42,12 +42,12 @@ class BatteryCharacteristic(Characteristic):
 
         return [dbus.Byte(precent)]
 
-    # def set_battery_callback(self):
-    #     if self.notifying:
-    #         value = self.get_battery_life()
-    #         self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
+    def set_battery_callback(self):
+        if self.notifying:
+            value = self.get_battery_life()
+            self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
 
-    #     return self.notifying
+        return self.notifying
 
     def StartNotify(self):
         if self.notifying:
