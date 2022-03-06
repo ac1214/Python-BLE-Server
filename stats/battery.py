@@ -5,14 +5,14 @@ GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 3000
 
 
-# class BatteryService(Service):
-#     BATTERY_SERVICE_UUID = "1000"
+class BatteryService(Service):
+    BATTERY_SERVICE_UUID = "1000"
 
-#     def __init__(self, index):
-#         self.farenheit = True
+    def __init__(self, index):
+        self.farenheit = True
 
-#         Service.__init__(self, index, self.BATTERY_SERVICE_UUID, True)
-#         self.add_characteristic(BatteryCharacteristic(self))
+        Service.__init__(self, index, self.BATTERY_SERVICE_UUID, True)
+        self.add_characteristic(BatteryCharacteristic(self))
 
 
 class BatteryCharacteristic(Characteristic):

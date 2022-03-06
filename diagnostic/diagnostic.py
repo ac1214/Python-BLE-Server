@@ -4,18 +4,18 @@ from util.util import read_value
 NOTIFY_TIMEOUT = 3000
 
 
-# class DiagnosticService(Service):
-#     DIAGNOSTIC_SERVICE_UUID = "5000"
+class DiagnosticService(Service):
+    DIAGNOSTIC_SERVICE_UUID = "5000"
 
-#     def __init__(self, index):
-#         self.farenheit = True
+    def __init__(self, index):
+        self.farenheit = True
 
-#         Service.__init__(self, index, self.DIAGNOSTIC_SERVICE_UUID, True)
-#         self.add_characteristic(HWVersionCharacteristic(self))
-#         self.add_characteristic(SWVersionCharacteristic(self))
-#         self.add_characteristic(FWVersionCharacteristic(self))
-#         self.add_characteristic(ModelCharacteristic(self))
-#         self.add_characteristic(BatteryTempCharacteristic(self))
+        Service.__init__(self, index, self.DIAGNOSTIC_SERVICE_UUID, True)
+        self.add_characteristic(HWVersionCharacteristic(self))
+        self.add_characteristic(SWVersionCharacteristic(self))
+        self.add_characteristic(FWVersionCharacteristic(self))
+        self.add_characteristic(ModelCharacteristic(self))
+        self.add_characteristic(BatteryTempCharacteristic(self))
 
 
 class HWVersionCharacteristic(Characteristic):
