@@ -1,49 +1,49 @@
-from service import Application, Service, Characteristic, Descriptor
-from util.util import read_value
+# from service import Application, Service, Characteristic, Descriptor
+# from util.util import read_value
 
-GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
-NOTIFY_TIMEOUT = 3000
-
-
-class TripService(Service):
-    TRIP_SERVICE_UUID = "1000"
-
-    def __init__(self, index):
-        self.farenheit = True
-
-        Service.__init__(self, index, self.TRIP_SERVICE_UUID, True)
-        self.add_characteristic(BatteryCharacteristic(self))
+# GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
+# NOTIFY_TIMEOUT = 3000
 
 
-class BatteryCharacteristic(Characteristic):
-    TEMP_CHARACTERISTIC_UUID = "1001"
+# class TripService(Service):
+#     TRIP_SERVICE_UUID = "1000"
 
-    def __init__(self, service):
-        self.notifying = False
+#     def __init__(self, index):
+#         self.farenheit = True
 
-        Characteristic.__init__(
-            self, self.TEMP_CHARACTERISTIC_UUID,
-            ["notify", "read"], service)
+#         Service.__init__(self, index, self.TRIP_SERVICE_UUID, True)
+#         self.add_characteristic(BatteryCharacteristic(self))
 
-    def set_battery_callback(self):
-        if self.notifying:
-            value = self.get_battery_life()
-            self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
 
-        return self.notifying
+# class BatteryCharacteristic(Characteristic):
+#     TEMP_CHARACTERISTIC_UUID = "1001"
 
-    def StartNotify(self):
-        if self.notifying:
-            return
+#     def __init__(self, service):
+#         self.notifying = False
 
-        self.notifying = True
+#         Characteristic.__init__(
+#             self, self.TEMP_CHARACTERISTIC_UUID,
+#             ["notify", "read"], service)
 
-        value = self.get_battery_life()
-        self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
-        self.add_timeout(NOTIFY_TIMEOUT, self.set_battery_callback)
+#     def set_battery_callback(self):
+#         if self.notifying:
+#             value = self.get_battery_life()
+#             self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
 
-    def StopNotify(self):
-        self.notifying = False
+#         return self.notifying
 
-    def ReadValue(self, options):
-        return read_value("battery-precent")
+#     def StartNotify(self):
+#         if self.notifying:
+#             return
+
+#         self.notifying = True
+
+#         value = self.get_battery_life()
+#         self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
+#         self.add_timeout(NOTIFY_TIMEOUT, self.set_battery_callback)
+
+#     def StopNotify(self):
+#         self.notifying = False
+
+#     def ReadValue(self, options):
+#         return read_value("battery-precent")
