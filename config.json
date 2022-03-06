@@ -6,5 +6,7 @@
     "sw-version": "sw_version123",
     "fw-version": "fw_version123",
     "model": "Boostbike model 123",
-    "battery-temp": 30
+    "battery-temp": 30,
+    "time-used": 1800,
+    "distance-travelled": 2400
 }

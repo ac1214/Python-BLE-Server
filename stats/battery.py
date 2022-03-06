@@ -1,6 +1,5 @@
 from service import Application, Service, Characteristic, Descriptor
 from util.util import read_value
-import dbus
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 3000
@@ -28,7 +27,7 @@ class BatteryCharacteristic(Characteristic):
 
     def set_battery_callback(self):
         if self.notifying:
-            value = self.get_battery_life()
+            value = read_value("battery-precent")
             self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
 
         return self.notifying
@@ -39,7 +38,7 @@ class BatteryCharacteristic(Characteristic):
 
         self.notifying = True
 
-        value = self.get_battery_life()
+        value = read_value("battery-precent")
         self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
         self.add_timeout(NOTIFY_TIMEOUT, self.set_battery_callback)
 

@@ -4,6 +4,7 @@ from advertisement import Advertisement
 from service import Application, Service, Characteristic, Descriptor
 from stats.battery import BatteryService
 from diagnostic.diagnostic import DiagnosticService
+from stats.trip import TripService
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 3000
@@ -70,6 +71,8 @@ app.register()
 app.add_service(BatteryService(1))
 app.register()
 
+app.add_service(TripService(2))
+app.register()
 
 adv = BikeAdvertisement(0)
 adv.register()
