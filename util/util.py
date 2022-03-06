@@ -22,7 +22,7 @@ def read_value(key):
         temp = bytearray(struct.pack(">f", res))
         val = []
         for el in temp:
-            val.append(dbus.Byte(res))
+            val.append(dbus.Byte(el))
         return val
     return res
 
