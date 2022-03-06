@@ -65,7 +65,7 @@ class BatteryCharacteristic(Characteristic):
 
     def ReadValue(self, options):
         value = self.get_battery_life()
-
+        print("debug")
         return [dbus.Byte("t".encode())]
 
 class TempDescriptor(Descriptor):
