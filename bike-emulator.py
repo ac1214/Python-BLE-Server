@@ -2,8 +2,8 @@ import dbus
 
 from advertisement import Advertisement
 from service import Application, Service, Characteristic, Descriptor
-from stats.battery import BatteryService
-from diagnostic.diagnostic import DiagnosticService
+from stats.battery import BatteryCharacteristic
+from diagnostic.diagnostic import HWVersionCharacteristic, SWVersionCharacteristic, FWVersionCharacteristic, ModelCharacteristic, BatteryTempCharacteristic
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 3000
@@ -63,11 +63,22 @@ class BikeAdvertisement(Advertisement):
 #         return value
 
 
-app = Application()
-app.add_service(DiagnosticService(0))
-# app.register()
+class BaseService(Service):
+    BASE_SERVICE_UUID = "1000"
 
-app.add_service(BatteryService(0))
+    def __init__(self, index):
+        self.farenheit = True
+
+        Service.__init__(self, index, self.BASE_SERVICE_UUID, True)
+        self.add_characteristic(BatteryCharacteristic(self))
+        self.add_characteristic(HWVersionCharacteristic(self))
+        self.add_characteristic(SWVersionCharacteristic(self))
+        self.add_characteristic(FWVersionCharacteristic(self))
+        self.add_characteristic(ModelCharacteristic(self))
+        self.add_characteristic(BatteryTempCharacteristic(self))
+
+app = Application()
+app.add_service(BaseService(0))
 app.register()
 
 
