@@ -5,7 +5,7 @@ from advertisement import Advertisement
 from service import Application, Service, Characteristic, Descriptor
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
-NOTIFY_TIMEOUT = 5000
+NOTIFY_TIMEOUT = 3000
 CONFIG_FILE_PATH = "config.json"
 
 class BikeAdvertisement(Advertisement):
@@ -49,22 +49,22 @@ class BatteryCharacteristic(Characteristic):
 
     #     return self.notifying
 
-    # def StartNotify(self):
-    #     if self.notifying:
-    #         return
+    def StartNotify(self):
+        if self.notifying:
+            return
 
-    #     self.notifying = True
+        self.notifying = True
 
-    #     value = self.get_battery_life()
-    #     self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
-    #     self.add_timeout(NOTIFY_TIMEOUT, self.set_battery_callback)
+        value = self.get_battery_life()
+        self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
+        self.add_timeout(NOTIFY_TIMEOUT, self.set_battery_callback)
 
-    # def StopNotify(self):
-    #     self.notifying = False
+    def StopNotify(self):
+        self.notifying = False
 
     def ReadValue(self, options):
         value = self.get_battery_life()
-        print("debug")
+
         return value
 
 # class TempDescriptor(Descriptor):
