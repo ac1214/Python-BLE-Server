@@ -43,9 +43,9 @@ class TempCharacteristic(Characteristic):
 
         return bytes([precent])
 
-    def set_temperature_callback(self):
+    def set_battery_callback(self):
         if self.notifying:
-            value = self.get_temperature()
+            value = self.get_battery_life()
             self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
 
         return self.notifying
@@ -56,15 +56,15 @@ class TempCharacteristic(Characteristic):
 
         self.notifying = True
 
-        value = self.get_temperature()
+        value = self.get_battery_life()
         self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
-        self.add_timeout(NOTIFY_TIMEOUT, self.set_temperature_callback)
+        self.add_timeout(NOTIFY_TIMEOUT, self.set_battery_callback)
 
     def StopNotify(self):
         self.notifying = False
 
     def ReadValue(self, options):
-        value = self.get_temperature()
+        value = self.get_battery_life()
 
         return value
 
